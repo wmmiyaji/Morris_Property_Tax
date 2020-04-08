@@ -73,7 +73,8 @@ make_download_url <- function(YEAR) {
 
 make_zip_destination <- function(YEAR) {
   dir.create("./Data/Morris")
-  paste0("./Data/Morris",  substr(YEAR,3,4), ".zip")}
+  paste0("./Data/Morris",  substr(YEAR,3,4), ".zip")
+  }
 
 download.zip.file <- function(YEAR) {
   dir.create("./Data/")
@@ -81,7 +82,19 @@ download.zip.file <- function(YEAR) {
                 destfile = make_zip_destination(YEAR))}
 
 untar.zip.file <- function(YEAR){
-  untar(make_zip_destination(YEAR), exdir = "./Data/Morris")
+  ifelse(as.character(Sys.info()[1]) == "Darwin", 
+    untar(make_zip_destination(YEAR), exdir = "./Data/Morris"),
+    unzip(make_zip_destination(YEAR), exdir = "./Data/Morris"))
+}
+
+delete.zip.file <- function(YEAR){
+  fn <- paste0("./Data/Morris",  substr(YEAR,3,4), ".zip")
+  if (file.exists(fn)) file.remove(fn)
+}
+
+delete.Morris.txt.file <- function(YEAR){
+  fn <- paste0("./Data/Morris/Morris",  substr(YEAR,3,4), ".txt")
+  if (file.exists(fn)) file.remove(fn)
 }
 
 parse.tax.one.year <- function(YEAR) {
@@ -95,11 +108,14 @@ parse.tax.one.year <- function(YEAR) {
   return(tax.file)
 }
 
-combine_all_years_tax <- function(FIRST.YEAR, LAST.YEAR) {
+combine_all_years_tax <- function(FIRST.YEAR, LAST.YEAR, COUNTY.DISTRICT) {
   
   all.years.tax.data <- FIRST.YEAR:LAST.YEAR %>% 
     map_df(.f = function(YEAR){
-      parse.tax.one.year(YEAR) 
+      one.year.out <- parse.tax.one.year(YEAR) %>% filter(COUNTY_DISTRICT == COUNTY.DISTRICT)
+      delete.Morris.txt.file(YEAR)
+      gc()
+      return(one.year.out) 
     }) %>% 
     mutate(COUNTY_DISTRICT = as.character(COUNTY_DISTRICT)) %>% 
     mutate(LAST_YEAR_TAX = ifelse(year == 2009, paste0(substr(LAST_YEAR_TAX,1,8 ),"0"), LAST_YEAR_TAX ))
@@ -113,14 +129,17 @@ combine_all_years_tax <- function(FIRST.YEAR, LAST.YEAR) {
 2009:2019 %>% walk(.f = function(YEAR){
   download.zip.file(YEAR)
   untar.zip.file(YEAR)
+  delete.zip.file(YEAR)
   if(YEAR == 2009) file.rename(from = "./Data/Morris/Morris.txt", to = "./Data/Morris/Morris09.txt")
   if(YEAR == 2011) file.rename(from = "./Data/Morris/Morris COUNTY.TXT", to = "./Data/Morris/Morris11.txt")
+  if(YEAR == 2011) file.rename(from = "./Data/Morris/Morris County.TXT", to = "./Data/Morris/Morris11.txt")
 })
 
 # parses each .txt file and build data frame for all years. 
-all.years.tax.data <- combine_all_years_tax(2009, 2019)
+all.years.tax.data <- combine_all_years_tax(2009, 2019, 1413) %>%            # change town code here
+  filter(!is.na(BLOCK))
 
-"Harding Twp" %>% 
+"Harding Twp" %>%           # change town name here 
   walk(.f = function(MUNI){
     dir.create("./Data_Out/")
     one_muni <- all.years.tax.data %>% filter(MUNI == county.muni)  

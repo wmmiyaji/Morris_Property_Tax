@@ -23,16 +23,19 @@ untar.zip.file <- function(GIS.TYPE){
   untar(make_gis_zip_destination(GIS.TYPE), exdir = paste0("./Data/Morris/", GIS.TYPE))
 }
 
-gis.file.list %>% walk(.f = function(GIS.TYPE){
-  download.gis.zip.file(GIS.TYPE)
-  untar.zip.file(GIS.TYPE)
-})
+
 
 make.county.gis.sf <- function(GIS.TYPE) {
   file.location <- paste0("./Data/Morris/", GIS.TYPE, "/", GIS.TYPE, "/", GIS.TYPE,".shp")
   sf.file <- st_read(file.location)
   sf.file <- st_transform(sf.file, crs ='+proj=longlat +datum=WGS84')
 }
+
+
+gis.file.list %>% walk(.f = function(GIS.TYPE){
+  download.gis.zip.file(GIS.TYPE)
+  untar.zip.file(GIS.TYPE)
+})
 
 Counties_Morris.sf <- make.county.gis.sf("Counties_Morris")
 Municipalities.sf <- make.county.gis.sf("Municipalities")
