@@ -18,10 +18,13 @@ library(lubridate)
 # lookup: https://www.r-bloggers.com/r-markdown-template-for-business-reports/
 knitr::opts_chunk$set(echo = FALSE, warning=FALSE, message=FALSE)
 
-source("./Code/build_muni_data_files.R")
-source("./Code/building_gis_data_files.R")
+load(file = "hardingsf.RData")    # Parcels.sf
+load(file = "hardingtax.RData")   # Harding.tax.data
+
+#source("./Code/build_muni_data_files.R")
+#source("./Code/building_gis_data_files.R")
 target.town <- "Harding Twp"
-target.town.tax.data <- all.years.tax.data %>% filter(county.muni == target.town)
+target.town.tax.data <- Harding.tax.data
 
 Property_Class_Codes <- read_csv("./Data_In/Property_Class_Codes.csv") %>% 
   select(1:2) %>% as.data.frame()
@@ -55,10 +58,9 @@ These three files are downloaded from the Morris County (GIS) system, unzipped a
 
 ```{r harding}
 
-H.Parcels <- Parcels.sf %>% 
-  filter(MuniID == 1413) 
+
   ggplot() + 
-  geom_sf(data = H.Parcels, fill= "blue") +
+  geom_sf(data = Parcels.sf, fill= "blue") +
   labs(title = paste("Example of Parcel Map: ", target.town)) + 
   theme_map()
   
@@ -232,9 +234,8 @@ target.town.tax.data %>%
 ### Map of Residential 
 
 ```{r }
-library(ggthemes)
 
-H.Parcels %>% mutate(residential= ifelse(PropCode == "2", T, F)) %>% 
+Parcels.sf %>% mutate(residential= ifelse(PropCode == "2", T, F)) %>% 
     ggplot() + 
   geom_sf(aes(fill = as.factor(residential))) + 
   labs(title = paste("Property Code Residential"), 
@@ -248,7 +249,7 @@ H.Parcels %>% mutate(residential= ifelse(PropCode == "2", T, F)) %>%
 
 ```{r }
 
-H.Parcels %>% mutate(qfarm = ifelse(PropCode == "3B", T, F)) %>% 
+Parcels.sf %>% mutate(qfarm = ifelse(PropCode == "3B", T, F)) %>% 
     ggplot() + 
   geom_sf(aes(fill = as.factor(qfarm))) + 
   labs(title = paste("Qualified Farm Parcels"), 
@@ -262,7 +263,7 @@ H.Parcels %>% mutate(qfarm = ifelse(PropCode == "3B", T, F)) %>%
 
 ```{r }
 
-H.Parcels %>% mutate(qfarm = ifelse(PropCode == "3A", T, F)) %>% 
+Parcels.sf %>% mutate(qfarm = ifelse(PropCode == "3A", T, F)) %>% 
     ggplot() + 
   geom_sf(aes(fill = as.factor(qfarm))) + 
   labs(title = paste("Farm Parcels"), 
