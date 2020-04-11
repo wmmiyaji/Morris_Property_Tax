@@ -207,6 +207,7 @@ data.out <- target.town.tax.data %>%
   mutate(LAST_YEAR_TAX = round(as.numeric(LAST_YEAR_TAX)/100,2)) %>% 
   spread(key = year, value = LAST_YEAR_TAX) %>% as.data.frame()
 
+dir.create("./Data_Out/")
 write.csv(data.out, file = "./Data_Out/harding_taxes_year.csv")
 
 ```
@@ -442,6 +443,7 @@ data.out <- target.town.tax.data %>%
   mutate(NET_VALUE = round(as.numeric(NET_VALUE),2)) %>% 
   spread(key = year, value = NET_VALUE) %>% as.data.frame()
 
+dir.create("./Data_Out/")
 write.csv(data.out, file = "./Data_Out/harding_net_value_year.csv")
 
 ```
