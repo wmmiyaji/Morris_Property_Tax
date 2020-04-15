@@ -115,7 +115,7 @@ combine_all_years_tax <- function(FIRST.YEAR, LAST.YEAR, COUNTY.DISTRICT) {
   all.years.tax.data <- FIRST.YEAR:LAST.YEAR %>% 
     map_df(.f = function(YEAR){
       one.year.out <- parse.tax.one.year(YEAR) %>% filter(COUNTY_DISTRICT == COUNTY.DISTRICT)
-      delete.Morris.txt.file(YEAR)
+      #delete.Morris.txt.file(YEAR)
       gc()
       return(one.year.out) 
     }) %>% 
@@ -129,9 +129,9 @@ combine_all_years_tax <- function(FIRST.YEAR, LAST.YEAR, COUNTY.DISTRICT) {
 
 # uses functions to download the Morris County files, unzip and write as .txt to ./Data/Morris
 2009:2019 %>% walk(.f = function(YEAR){
-  download.zip.file(YEAR)
+  #download.zip.file(YEAR)
   untar.zip.file(YEAR)
-  delete.zip.file(YEAR)
+  #delete.zip.file(YEAR)
   if(YEAR == 2009) file.rename(from = "./Data/Morris/Morris.txt", to = "./Data/Morris/Morris09.txt")
   if(YEAR == 2011) file.rename(from = "./Data/Morris/Morris COUNTY.TXT", to = "./Data/Morris/Morris11.txt")
   if(YEAR == 2011) file.rename(from = "./Data/Morris/Morris County.TXT", to = "./Data/Morris/Morris11.txt")

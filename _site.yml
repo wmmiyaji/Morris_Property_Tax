@@ -1,26 +1,78 @@
 navbar:
   title: Morris County Taxes
   left:
-  - text: Boonton Town
-    href: Boonton_Town_property_taxes.html
-  - text: Boonton Twp
-    href: Boonton_Twp_property_taxes.html
-  - text: Butler Boro
-    href: Butler_Boro_property_taxes.html
-  - text: Chatham Boro
-    href: Chatham_Boro_property_taxes.html
-  - text: Chatham Twp
-    href: Chatham_Twp_property_taxes.html
-  - text: Chester Boro
-    href: Chester_Boro_property_taxes.html
-  - text: Chester Twp
-    href: Chester_Twp_property_taxes.html
-  - text: Deville Twp
-    href: Denville_Twp_property_taxes.html
-  - text: Dover Town
-    href: Dover_Town_property_taxes.html
-  - text: East Hanover Twp
-    href: East_Hanover_Twp_property_taxes.html
+  - text: Municipalities
+    menu:
+    - text: Boonton Town
+      href: Boonton_Town_property_taxes.html
+    - text: Boonton Twp
+      href: Boonton_Twp_property_taxes.html
+    - text: Butler Boro
+      href: Butler_Boro_property_taxes.html
+    - text: Chatham Boro
+      href: Chatham_Boro_property_taxes.html
+    - text: Chatham Twp
+      href: Chatham_Twp_property_taxes.html
+    - text: Chester Boro
+      href: Chester_Boro_property_taxes.html
+    - text: Chester Twp
+      href: Chester_Twp_property_taxes.html
+    - text: Deville Twp
+      href: Denville_Twp_property_taxes.html
+    - text: Dover Town
+      href: Dover_Town_property_taxes.html
+    - text: East Hanover Twp
+      href: East_Hanover_Twp_property_taxes.html
+    - text: Florham Park Boro
+      href: Florham_Park_Boro_property_taxes.html
+    - text: Hanover Twp
+      href: Hanover_Twp_property_taxes.html
+    - text: Harding Twp
+      href: Harding_Twp_property_taxes.html
+    - text: Jefferson Twp
+      href: Jefferson_Twp_property_taxes.html
+    - text: Kinnelon Boro
+      href: Kinnelon_Boro_property_taxes.html
+    - text: Lincoln Park Boro
+      href: Lincoln_Park_Boro_property_taxes.html
+    - text: Long Hill Twp
+      href: Long_Hill_Twp_property_taxes.html
+    - text: Madison Boro
+      href: Madison_Boro_property_taxes.html
+    - text: Mendham Twp
+      href: Mendham_Twp_property_taxes.html
+    - text: Montville Twp
+      href: Montville_Twp_property_taxes.html
+    - text: Morris Plains Boro
+      href: Morris_Plains_Boro_property_taxes.html
+    - text: Morris Twp
+      href: Morris_Twp_property_taxes.html
+    - text: Morristown Town
+      href: Morristown_Town_property_taxes.html
+    - text: Mount Arlington Boro
+      href: Mount_Arlington_Boro_property_taxes.html
+    - text: Mount Olive Twp
+      href: Mount_Olive_Twp_property_taxes.html
+    - text: Mountain Lakes Boro
+      href: Mountain_Lakes_Boro_property_taxes.html
+    - text: Parsippany-Troy Hills
+      href: Parsippany-Troy_Hills_property_taxes.html
+    - text: Pequannock Twp
+      href: Pequannock_Twp_property_taxes.html
+    - text: Randolph Twp
+      href: Randolph_Twp_property_taxes.html
+    - text: Riverdale Boro
+      href: Riverdale_Boro_property_taxes.html
+    - text: Rockaway Boro
+      href: Rockaway_Boro_property_taxes.html
+    - text: Rockaway Twp
+      href: Rockaway_Twp_property_taxes.html
+    - text: Roxbury Twp
+      href: Roxbury_Twp_property_taxes.html
+    - text: Washington Twp
+      href: Washington_Twp_property_taxes.html
+    - text: Wharton Boro
+      href: Wharton_Boro_property_taxes.html
 output:
   html_document:
     theme: flatly

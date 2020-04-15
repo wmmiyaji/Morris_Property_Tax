@@ -32,7 +32,7 @@ make.county.gis.sf <- function(GIS.TYPE) {
 
 
 gis.file.list %>% walk(.f = function(GIS.TYPE){
-  download.gis.zip.file(GIS.TYPE)
+  #download.gis.zip.file(GIS.TYPE)
   untar.zip.file(GIS.TYPE)
 })
 

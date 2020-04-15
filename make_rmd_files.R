@@ -340,6 +340,7 @@ target.town.tax.data %>%
     theme_bw() 
 
 ```
+
 ### Count of Widows
 
 ```{r }
@@ -400,9 +401,10 @@ target.town.tax.data %>%
 ### Facet of 2019 Net Value by R Zones
 
 ```{r }
+
 target.town.tax.data %>% 
   filter(substr(ZONING,1,1) == "R", PROPERTY_CLASS ==2, ZONING != "ROAD") %>% 
-  ggplot(aes(x=ZONING, y = as.numeric(NET_VALUE)/100, color = ZONING)) +      
+  ggplot(aes(x=ZONING, y = as.numeric(NET_VALUE), color = ZONING)) +      
     geom_boxplot() + 
     facet_wrap(~year) + 
     labs(title = "", 
@@ -430,7 +432,7 @@ write.csv(data.out, file = "./Data_Out/harding_net_value_year.csv")
 ```{r }
 target.town.tax.data %>% 
   filter(substr(ZONING,1,1) == "R", PROPERTY_CLASS ==2, ZONING != "ROAD") %>% 
-  ggplot(aes(x=as.factor(year), y = as.numeric(NET_VALUE)/100, color = ZONING)) +      
+  ggplot(aes(x=as.factor(year), y = as.numeric(NET_VALUE), color = ZONING)) +      
     geom_boxplot() + 
     facet_wrap(~ZONING) + 
     labs(title = "", 
@@ -494,7 +496,7 @@ code.county.muni.list <- read_csv("./Data_In/Code_County_Muni_List.csv") %>%
   )
 names(code.county.muni.list)[1] <- "COUNTY_DISTRICT"
 
-code.county.muni.list$COUNTY_DISTRICT[1:10] %>% walk(.f=function(MUNI.CODE){
+code.county.muni.list$COUNTY_DISTRICT %>% walk(.f=function(MUNI.CODE){
 
 MUNI.NAME <- code.county.muni.list %>% 
   filter(COUNTY_DISTRICT == MUNI.CODE) %>% 
@@ -509,6 +511,5 @@ cat(
   sep = "",
   file = paste0(str_replace_all(MUNI.NAME," ", "_"),'_property_taxes.Rmd')
   )
-
 })
 
