@@ -41,10 +41,10 @@ Municipalities.sf <- make.county.gis.sf("Municipalities")
 ParcelsMODIV.sf <- make.county.gis.sf("ParcelsMODIV")
 Parcels.sf <- make.county.gis.sf("Parcels")
 
-Harding.Muni.sf <- Municipalities.sf %>% filter(MuniID == 1413)
+Municipality.sf <- Municipalities.sf %>% filter(MuniID == muni.code)
 
 Parcels.sf <- Parcels.sf %>% 
-  filter(MuniID == 1413) 
+  filter(MuniID == muni.code) 
 
 
-save(Parcels.sf, file = "hardingsf.RData")
+#save(Parcels.sf, file = paste0(str_replace_all(muni.name, " ", "_"), "_sf.RData"))

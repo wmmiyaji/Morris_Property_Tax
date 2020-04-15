@@ -2,6 +2,8 @@ library(tidyverse)
 library(readr)
 library(lubridate)
 
+#muni.code <- 1426   # Mt Arlington 
+
 # Morris Data https://www.state.nj.us/treasury/taxation/lpt/TaxListSearchPublicWebpage.shtml
 # https://www.state.nj.us/treasury/taxation/lpt/MODIV-Counties/2019/Morris19.zip  most years 
 # https://www.state.nj.us/treasury/taxation/lpt/MODIV-Counties/2009/Morris.zip  for years 2009, 2011, 2012
@@ -52,7 +54,7 @@ code.county.muni.list <- read_csv("./Data_In/Code_County_Muni_List.csv") %>%
          county.muni = str_replace(county.muni, " Morris County", ""),
          county.muni = str_replace(county.muni, "TO WN", "TOWN"),
          county.muni = str_replace(county.muni, "LAKE S", "LAKES"),
-         county.muni = str_replace(county.muni, "BARLINGT ON", "ARLINGTON"),
+         county.muni = str_replace(county.muni, "MOUNT ARLINGT ON BORO", "MOUNT ARLINGTON BORO"),
          county.muni = str_replace(county.muni, "TW P", "TWP"),
          county.muni = str_replace(county.muni, "T WP", "TWP"),
          county.muni = str_replace(county.muni, "BOR O", "BORO"),
@@ -136,10 +138,16 @@ combine_all_years_tax <- function(FIRST.YEAR, LAST.YEAR, COUNTY.DISTRICT) {
 })
 
 # parses each .txt file and build data frame for all years. 
-Harding.tax.data <- combine_all_years_tax(2009, 2019, 1413) %>%            # change town code here
+one.town.tax.data <- combine_all_years_tax(2009, 2019, muni.code) %>%            # change town code here
   filter(!is.na(BLOCK))
 
-save(Harding.tax.data,  file = "hardingtax.RData")
+muni.name <- code.county.muni.list %>% 
+  filter(COUNTY_DISTRICT == muni.code) %>% 
+  select(county.muni) %>% 
+  as.character()
 
-    dir.create("./Data_Out/")
-    write.csv(Harding.tax.data, file = paste0("./Data_Out/", str_replace_all("Harding Twp", " ", "_"), "_tax_record_2019.csv"))
+#save(one.town.tax.data,  file = paste0(str_replace_all(muni.name, " ", "_"), "_tax.RData"))
+
+dir.create("./Data_Out/")
+write.csv(one.town.tax.data %>% filter(year == 2019), 
+          file = paste0("./Data_Out/", str_replace_all(muni.name, " ", "_"), "_tax_record_2019.csv"))

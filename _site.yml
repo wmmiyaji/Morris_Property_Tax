@@ -1,0 +1,26 @@
+navbar:
+  title: Morris County Taxes
+  left:
+  - text: Boonton Town
+    href: Boonton_Town_property_taxes.html
+  - text: Boonton Twp
+    href: Boonton_Twp_property_taxes.html
+  - text: Butler Boro
+    href: Butler_Boro_property_taxes.html
+  - text: Chatham Boro
+    href: Chatham_Boro_property_taxes.html
+  - text: Chatham Twp
+    href: Chatham_Twp_property_taxes.html
+  - text: Chester Boro
+    href: Chester_Boro_property_taxes.html
+  - text: Chester Twp
+    href: Chester_Twp_property_taxes.html
+  - text: Deville Twp
+    href: Denville_Twp_property_taxes.html
+  - text: Dover Town
+    href: Dover_Town_property_taxes.html
+  - text: East Hanover Twp
+    href: East_Hanover_Twp_property_taxes.html
+output:
+  html_document:
+    theme: flatly
